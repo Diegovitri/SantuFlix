@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="clienteModule">
 <head>
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>SantuFlix - Cadastro de Clientes</title>
+	<title>SantuFlix - Cadastro de Cliente</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -23,6 +23,11 @@
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="assets/css/demo.css" rel="stylesheet" />
+	
+			<!--Link do angular -->
+		<script src="assets/js/angular.min.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="control/clienteControl.js"></script>
 
 
     <!--     Fonts and icons     -->
@@ -30,7 +35,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
-<body>
+<body ng-controller="clienteControl">
 
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
@@ -108,10 +113,9 @@
                                Conta
                             </a>
                         </li>
-
                         <li>
                             <a href="#">
-                               Sair
+                                Sair
                             </a>
                         </li>
                     </ul>
@@ -123,55 +127,64 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="content">
-							<ul class="nav nav-tabs">
-								<li role="presentation" class="active"><a href="#">Cadastro Cliente</a></li>
-								<li role="presentation"><a href="#">Dados Cliente</a></li>
-								
-							</ul>
-							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="cadastro">
-									<form>
-										<div class="row">
-											<div class="col-md-2">
-												<div class="form-group">
-													<label>Código Cliente</label>
-													<input type="text" class="form-control" disabled placeholder="Company" value="Código Cliente">
+						<div class="panel-body">
+							<div>
+									<!-- Nav tabs -->
+								  <ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active">
+										<a href="#cadastro" aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
+									</li>
+									<li role="presentation">
+										<a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
+									</li>
+								  </ul>
+								 <!-- Tab panes -->
+								<div class="tab-content">
+									<div class="header">
+										<h4 class="title">Clientes</h4>
+									</div>
+									<div role="tabpanel" class="tab-pane active" id="cadastro">
+										<form>
+											<div class="row">
+												<div class="col-md-2">
+													<div class="form-group">
+														<label>Código Cliente</label>
+														<input type="text" class="form-control" ng-model="cliente.codigo" disabled placeholder="Código Cliente" value="Código Cliente">
+													</div>
+												</div>
+												<div class="col-md-10">
+													<div class="form-group">
+														<label>Nome</label>
+														<input type="text" class="form-control" ng-model="cliente.nome" placeholder="Nome do cliente">
+													</div>
+												</div>
+												<div class="col-md-10">
+													<div class="form-group">
+														<label>Número do Cartão</label>
+														<input type="text" class="form-control" ng-model="cliente.cartao" placeholder="Número do Cartão">
+													</div>
 												</div>
 											</div>
-											<div class="col-md-10">
-												<div class="form-group">
-													<label>Nome</label>
-													<input type="text" class="form-control" placeholder="Nome do Cliente">
-												</div>
-											</div>
-											<div class="col-md-4">
-												<div class="form-group">
-													<label>Número do Cartão</label>
-													<input type="text" class="form-control" placeholder="Número do cartão de credito/débito">
-												</div>
-											</div>
-										</div>
-										<button type="submit" class="btn btn-info btn-fill pull-right">Cadastrar</button>
-										<div class="clearfix"></div>
-									</form>
-								</div>
-								<div role="tabpanel" class="tab-pane" id="dados">
-									<br>
-									<input type="text" class="form-control" ng-model="criterio" 
-									placeholder="O que voce esta procurando?" /><br>
-										<table class="table table-hover">
-											<th>Codigo</th><th>R.A.</th><th>Nome</th><th>Número Cartão</th>
-
+											<button type="submit" class="btn btn-info btn-fill pull-right" ng-click="novo()">Novo</button>
+											<button type="submit" class="btn btn-success btn-fill pull-right" ng-click="salvar()">Salvar</button>
+											<button type="submit" class="btn btn-danger btn-fill pull-right" ng-click="excluir()">Excluir</button>
+											<button type="submit" class="btn btn-warning btn-fill pull-right" ng-click="pesquisar()">Pesquisar</button>
+											<div class="clearfix"></div>
+										</form>
+									</div>
+									<div role="tabpanel" class="tab-pane" id="dados">
+										<br>
+										<input type="text" class="form-control" ng-model="criterio" placeholder="O que voce esta procurando?" /><br>
+											<table class="table table-hover">
+												<th>Codigo</th><th>Nome</th><th>Número do Cartão</th>
 											<tr ng-repeat="clienteTabela in clientes | filter:criterio" ng-click="seleciona(clienteTabela);">
-												<td>{{clienteTabela.codigo}}</td><td>{{alunoTabela.nome}}</td><td>{{alunoTabela.numero}}</td>
+												<td>{{clienteTabela.codigo}}</td><td>{{clienteTabela.nome}}</td><td>{{clienteTabela.cartao}}</td>
 											</tr>
 										</table>
 									</div>
 								</div>
-                            </div>
-                        </div>
+							</div>	
+						</div>
                     </div>
 
                 </div>

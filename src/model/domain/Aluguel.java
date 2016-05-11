@@ -109,5 +109,13 @@ public class Aluguel implements Serializable{
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Aluguel [codigo=" + codigo + ", data=" + data + ", cliente=" + cliente + ", filme=" + filme + "]";
+	}
+
+	
+	
 }
