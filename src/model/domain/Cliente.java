@@ -5,16 +5,19 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @Entity
+/*acrescentei o @Transactional*/
+@Transactional
 @Table(name="TB_CLIENTE")
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -31,7 +34,8 @@ public class Cliente implements Serializable{
 	private Integer cartao;
 	
 	
-	@OneToMany(mappedBy="cliente",fetch= FetchType.EAGER)
+	//@OneToMany(mappedBy="cliente",fetch= FetchType.EAGER)
+	@OneToMany(mappedBy="cliente")
 	private List<Aluguel> aluguel;
 
 	public Cliente() {
@@ -62,6 +66,7 @@ public class Cliente implements Serializable{
 		this.cartao = cartao;
 	}
 
+	@XmlTransient
 	public List<Aluguel> getAluguel() {
 		return aluguel;
 	}
