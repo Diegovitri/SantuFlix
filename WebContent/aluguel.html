@@ -161,13 +161,13 @@
 												<div class="col-md-2">
 													<div class="form-group">
 														<label>Código do Cliente</label>
-														<input type="text" class="form-control" ng-model="aluguel.cliente" placeholder="Código do Cliente">
+														<input type="text" class="form-control" ng-model="aluguel.cliente.codigo" placeholder="Código do Cliente">
 													</div>
 												</div>
 												<div class="col-md-2">
 													<div class="form-group">
 														<label>Código do Filme</label>
-														<input type="text" class="form-control" ng-model="aluguel.filme" placeholder="Código do Filme">
+														<input type="text" class="form-control" ng-model="aluguel.filme.codigo" placeholder="Código do Filme">
 													</div>
 												</div>
 											</div>
@@ -182,9 +182,9 @@
 										<br>
 										<input type="text" class="form-control" ng-model="criterio" placeholder="O que voce esta procurando?" /><br>
 											<table class="table table-hover">
-												<th>Codigo</th><th>Data do Aluguel </th><th>Código do Cliente</th><th>Código do Filme</th>
+												<th>Codigo do Aluguel</th><th>Data do Aluguel </th><th>Código do Cliente</th><th>Código do Filme</th>
 											<tr ng-repeat="aluguelTabela in aluguels | filter:criterio" ng-click="seleciona(aluguelTabela);">
-												<td>{{aluguelTabela.codigo}}</td><td>{{aluguelTabela.data}}</td><td>{{aluguelTabela.cliente}}</td><td>{{aluguelTabela.filme}}</td>
+												<td>{{aluguelTabela.codigo}}</td><td>{{aluguelTabela.data}}</td><td>{{aluguelTabela.cliente.codigo}}</td><td>{{aluguelTabela.filme.codigo}}</td>
 											</tr>
 										</table>
 									</div>

@@ -69,7 +69,7 @@ public class Aluguel implements Serializable{
 		this.data = data;
 	}
 
-	@XmlTransient
+	//@XmlTransient
 	public Cliente getCliente() {
 		return cliente;
 	}
