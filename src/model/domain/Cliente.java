@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,14 +30,16 @@ public class Cliente implements Serializable{
 	@Column(name="CD_CLIENTE")
 	private Integer codigo;
 	
+	@Size(min=3,message="Nome do cliente precisa ter pelo menos 3 caracteres")
+	@Pattern(regexp="[a-zA-Z]")
+	@NotNull(message="O campo nome é obrigatório")
 	@Column(name="NM_CLIENTE")
 	private String nome;
 	
+	@Size(min=13, max=16, message="Número do cartão deve ter no minimo 13 digitos e máximo 16")
 	@Column(name="NR_CARTAO")
 	private Integer cartao;
 	
-	
-	//@OneToMany(mappedBy="cliente",fetch= FetchType.EAGER)
 	@OneToMany(mappedBy="cliente")
 	private List<Aluguel> aluguel;
 

@@ -144,7 +144,7 @@
 										<h4 class="title">Clientes</h4>
 									</div>
 									<div role="tabpanel" class="tab-pane active" id="cadastro">
-										<form>
+										<form name="form" ng-submit="form.$valid && salvar()" novalidate>
 											<div class="row">
 												<div class="col-md-2">
 													<div class="form-group">
@@ -155,15 +155,22 @@
 												<div class="col-md-10">
 													<div class="form-group">
 														<label>Nome</label>
-														<input type="text" class="form-control" ng-model="cliente.nome" placeholder="Nome do cliente">
+														<input type="text" class="form-control" ng-model="cliente.nome" name="clientenome" placeholder="Nome do cliente" required="" ng-pattern="/[a-zA-Z]/" ng-minlength="3">
+														<p ng-show="form.clientenome.$error.required" class="help-block">"Nome é obrigatorio"</p>
+														<p ng-show="form.clientenome.$error.pattern" class="help-block">"Nome so aceita letras!"</p>
+														<p ng-show="form.clientenome.$error.minlength" class="help-block">O nome deve ter no minimo 3 caracteres</p>
 													</div>
 												</div>
 												<div class="col-md-10">
 													<div class="form-group">
 														<label>Número do Cartão</label>
-														<input type="text" class="form-control" ng-model="cliente.cartao" placeholder="Número do Cartão">
+														<input type="text" class="form-control" ng-model="cliente.cartao" name="clientecartao" ng-minlength="13" ng-maxlength="16" ng-pattern="/[0-9]/" placeholder="Número do Cartão">
+														<p ng-show="form.clientecartao.$error.pattern" class="help-block">Insira somente números!</p>
+														<p ng-show="form.clientecartao.$error.minlength" class="help-block">O número do cartão possui no mínimo 13 digitos</p>
+														<p ng-show="form.clientecartao.$error.maxlength" class="help-block">O número do cartão possui no máximo 16 digitos</p>
 													</div>
 												</div>
+												<span ng-repeat="mensagem in mensagens">{{mensagem}}<br></span>
 											</div>
 											<button type="submit" class="btn btn-info btn-fill pull-right" ng-click="novo()">Novo</button>
 											<button type="submit" class="btn btn-success btn-fill pull-right" ng-click="salvar()">Salvar</button>

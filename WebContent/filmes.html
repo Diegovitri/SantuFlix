@@ -144,7 +144,7 @@
 										<h4 class="title">Filmes</h4>
 									</div>
 									<div role="tabpanel" class="tab-pane active" id="cadastro">
-										<form>
+										<form name="form" ng-submit="salvar()" novalidate="novalidate">
 											<div class="row">
 												<div class="col-md-2">
 													<div class="form-group">
@@ -153,9 +153,11 @@
 													</div>
 												</div>
 												<div class="col-md-10">
-													<div class="form-group">
+													<div class="form-group" ng-class="{ 'has-error' : form.filmetitulo.$invalid && !form.filmetitulo.$pristine }">
 														<label>Titulo Filme</label>
-														<input type="text" class="form-control" ng-model="filme.titulo" placeholder="Titulo do Filme">
+														<input type="text" class="form-control" ng-model="filme.titulo" name="filmetitulo" placeholder="Titulo do Filme" required ng-minlength="3">
+														<p ng-show="form.filmetitulo.$invalid && !form.filmetitulo.$pristine" class="help-block">"Titulo do filme é obrigatorio"</p>
+														<p ng-show="form.filmetitulo.$error.minlength" class="help-block">O titulo do filme deve ter no minimo 3 caracteres</p>
 													</div>
 												</div>
 											</div>

@@ -13,8 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @Entity
@@ -28,14 +29,20 @@ public class Aluguel implements Serializable{
 	@Column(name="CD_ALUGUEL")
 	private Integer codigo;
 	
+	@NotNull(message="O campo cep é obrigatorio")
+	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}",message="A data não esta no formato 2016-05-11")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="DT_SOLICITACAO")
 	private Date data;
 
+	@NotNull(message="O código do cliente é obrigatorio")
+	@Pattern(regexp="[0-9]",message="Coloque somente números")
 	@ManyToOne
 	@JoinColumn(name = "cliente")
 	private Cliente cliente;
 
+	@NotNull(message="O código do filme é obrigatorio")
+	@Pattern(regexp="[0-9]",message="Coloque somente números")
 	@ManyToOne
 	@JoinColumn(name = "filme")
 	private Filme filme;

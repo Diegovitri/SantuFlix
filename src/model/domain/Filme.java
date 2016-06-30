@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -24,6 +26,8 @@ public class Filme implements Serializable{
 	@Column(name="CD_FILME")
 	private Integer codigo;
 	
+	@NotNull(message="Insira o titulo do filme")
+	@Size(min=3, message="Titulo do filme deve ter no mínimo 3 caracteres")
 	@Column(name="DS_TITULO")
 	private String Titulo;
 	

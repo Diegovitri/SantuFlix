@@ -144,7 +144,7 @@
 										<h4 class="title">Aluguel</h4>
 									</div>
 									<div role="tabpanel" class="tab-pane active" id="cadastro">
-										<form>
+										<form name="form" ng-submit="salvar()" novalidate="novalidate">
 											<div class="row">
 												<div class="col-md-2">
 													<div class="form-group">
@@ -153,21 +153,29 @@
 													</div>
 												</div>
 												<div class="col-md-4">
-													<div class="form-group">
+													<div class="form-group" ng-class="{ 'has-error' : form.alugueldata.$invalid && !form.alugueldata.$pristine }">
 														<label>Data do Aluguel</label>
-														<input type="text" class="form-control" ng-model="aluguel.data" placeholder="Data do Aluguel.Ex: 2016-05-11">
+														<input type="text" class="form-control" ng-model="aluguel.data" name="alugueldata" placeholder="Data do Aluguel.Ex: 2016-05-11" required ng-pattern="/^(\d{4}-\d{2}-\d{2})$/" ng-minlength="10">
+														<p ng-show="form.alugueldata.$invalid && !form.alugueldata.$pristine" class="help-block">"A data do aluguel é obrigatoria"</p>
+														<p ng-show="form.alugueldata.$error.pattern" class="help-block">"A data do aluguel não esta no formato 2016-05-11"</p>
+														<p ng-show="form.alugueldata.$error.minlength" class="help-block">A data deve ter 10 caracteres</p>
 													</div>
 												</div>
 												<div class="col-md-2">
-													<div class="form-group">
+													<div class="form-group" ng-class="{ 'has-error' : form.clientecodigo.$invalid && !form.clientecodigo.$pristine }">
 														<label>Código do Cliente</label>
-														<input type="text" class="form-control" ng-model="aluguel.cliente.codigo" placeholder="Código do Cliente">
+														<input type="text" class="form-control" ng-model="aluguel.cliente.codigo" name="clientecodigo" placeholder="Código do Cliente" required ng-pattern="/[0-9]/">
+														<p ng-show="form.clientecodigo.$invalid && !form.clientecodigo.$pristine" class="help-block">"O código do cliente é obrigatorio"</p>
+														<p ng-show="form.clientecodigo.$error.pattern" class="help-block">"O código do cliente possui somente números"</p>
+														
 													</div>
 												</div>
 												<div class="col-md-2">
-													<div class="form-group">
+													<div class="form-group" ng-class="{ 'has-error' : form.filmecodigo.$invalid && !form.filmecodigo.$pristine }">
 														<label>Código do Filme</label>
-														<input type="text" class="form-control" ng-model="aluguel.filme.codigo" placeholder="Código do Filme">
+														<input type="text" class="form-control" ng-model="aluguel.filme.codigo" name="filmecodigo" placeholder="Código do Filme" required ng-pattern="/[0-9]/">
+														<p ng-show="form.filmecodigo.$invalid && !form.filmecodigo.$pristine" class="help-block">"O código do filme é obrigatorio"</p>
+														<p ng-show="form.filmecodigo.$error.pattern" class="help-block">"O código do filme possui somente números"</p>
 													</div>
 												</div>
 											</div>
